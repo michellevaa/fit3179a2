@@ -1,0 +1,127 @@
+const DATA_URL = "data/hh_access_amenities.csv";  // keep CSV file in same folder
+
+    const amenitySpec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "width": 600,     // shrink chart safely
+        "height": 300,
+        "autosize": {"type": "fit", "contains": "padding"},
+        "padding": {"left": 60, "right": 40, "top": 10, "bottom": 50}, // keep axes visible
+        "data": { "url": DATA_URL, "format": {"type":"csv"} },
+        "params": [
+            { "name": "stateParam", "value": "" },
+            { "name": "districtParam", "value": "" }
+        ],
+        "transform": [
+            { "calculate": "year(toDate(datum.date))", "as": "Year" },
+            { "filter": "datum.state == stateParam && datum.district == districtParam" },
+            { "fold": ["piped_water","sanitation","electricity"], "as": ["Amenity","Value"] }
+        ],
+        "mark": { "type": "bar", "width": {"band": 0.7} },
+        "encoding": {
+            "x": {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year",
+            "sort": ["2016","2019","2022"],
+            "axis": {"labelAngle": 0, "labelFontSize": 12, "titleFontSize": 13}
+            },
+            "y": {
+            "field": "Value",
+            "type": "quantitative",
+            "title": "Access (%)",
+            "scale": {"domain": [0, 100]},
+            "axis": {
+                "tickCount": null,
+                "values": [0,10,20,30,40,50,60,70,80,90,100],
+                "labelFontSize": 12,
+                "titleFontSize": 13,
+                "grid": true
+            }
+            },
+            "xOffset": {"field": "Amenity"},
+            "color": {
+            "field": "Amenity",
+            "type": "nominal",
+            "title": "Amenity Type",
+            "scale": {
+                "domain": ["piped_water","sanitation","electricity"],
+                "range": ["#2b8cbe","#f0c300","#9e2a2b"]
+            }
+            },
+            "tooltip": [
+            {"field":"state", "title":"State"},
+            {"field":"district", "title":"District"},
+            {"field":"Year", "title":"Year"},
+            {"field":"Amenity", "title":"Amenity"},
+            {"field":"Value", "title":"Access (%)", "format":".1f"}
+            ]
+        },
+        "config": {
+            "axis": {"labelFontSize": 12, "titleFontSize": 13},
+            "legend": {"labelFontSize": 12, "titleFontSize": 13},
+            "view": {"stroke": "transparent"}
+        }
+        };
+
+
+    const stateSel = document.getElementById('stateSel');
+    const districtSel = document.getElementById('districtSel');
+    let view, stateToDistricts = {};
+
+    function parseCSV(text) {
+      const lines = text.trim().split(/\r?\n/);
+      const header = lines.shift().split(',');
+      const idx = {state: header.indexOf('state'), district: header.indexOf('district')};
+      const mapping = {};
+      for (const line of lines) {
+        const cols = line.split(',');
+        const s = cols[idx.state]?.trim(), d = cols[idx.district]?.trim();
+        if (s && d) { if (!mapping[s]) mapping[s] = new Set(); mapping[s].add(d); }
+      }
+      const out = {};
+      Object.keys(mapping).sort().forEach(s => { out[s] = [...mapping[s]].sort(); });
+      return out;
+    }
+
+    function populateStates(mapping) {
+      stateSel.innerHTML = '';
+      Object.keys(mapping).forEach(s=>{
+        const opt = document.createElement('option');
+        opt.value = opt.textContent = s;
+        stateSel.appendChild(opt);
+      });
+    }
+
+    function populateDistricts(mapping, state) {
+      districtSel.innerHTML = '';
+      (mapping[state] || []).forEach(d=>{
+        const opt = document.createElement('option');
+        opt.value = opt.textContent = d;
+        districtSel.appendChild(opt);
+      });
+    }
+
+    function updateSignals() {
+      if (!view) return;
+      view.signal('stateParam', stateSel.value);
+      view.signal('districtParam', districtSel.value);
+      view.runAsync();
+    }
+
+    fetch(DATA_URL)
+      .then(r => r.text())
+      .then(text => {
+        stateToDistricts = parseCSV(text);
+        populateStates(stateToDistricts);
+        const firstState = stateSel.value || Object.keys(stateToDistricts)[0];
+        populateDistricts(stateToDistricts, firstState);
+        vegaEmbed('#amenities', amenitySpec, {actions:false}).then(res=>{
+          view = res.view;
+          updateSignals();
+        });
+        stateSel.addEventListener('change', () => {
+          populateDistricts(stateToDistricts, stateSel.value);
+          updateSignals();
+        });
+        districtSel.addEventListener('change', updateSignals);
+      });
