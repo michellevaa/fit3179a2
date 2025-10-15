@@ -1,0 +1,95 @@
+// ================== INFLATION RATE TREND ================== //
+const inflationData = [
+  // Malaysia
+  {"Country": "Malaysia", "Year": 2010, "Inflation": 1.622852356},
+  {"Country": "Malaysia", "Year": 2011, "Inflation": 3.174470922},
+  {"Country": "Malaysia", "Year": 2012, "Inflation": 1.663571025},
+  {"Country": "Malaysia", "Year": 2013, "Inflation": 2.105012312},
+  {"Country": "Malaysia", "Year": 2014, "Inflation": 3.142990509},
+  {"Country": "Malaysia", "Year": 2015, "Inflation": 2.104389802},
+  {"Country": "Malaysia", "Year": 2016, "Inflation": 2.090566595},
+  {"Country": "Malaysia", "Year": 2017, "Inflation": 3.871201158},
+  {"Country": "Malaysia", "Year": 2018, "Inflation": 0.884709161},
+  {"Country": "Malaysia", "Year": 2019, "Inflation": 0.662891866},
+  {"Country": "Malaysia", "Year": 2020, "Inflation": -1.138702154},
+  {"Country": "Malaysia", "Year": 2021, "Inflation": 2.477102415},
+  {"Country": "Malaysia", "Year": 2022, "Inflation": 3.378698625},
+  {"Country": "Malaysia", "Year": 2023, "Inflation": 2.488865601},
+  {"Country": "Malaysia", "Year": 2024, "Inflation": 1.834100204},
+
+  // China
+  {"Country": "China", "Year": 2010, "Inflation": 3.17532475},
+  {"Country": "China", "Year": 2011, "Inflation": 5.55389892},
+  {"Country": "China", "Year": 2012, "Inflation": 2.61952433},
+  {"Country": "China", "Year": 2013, "Inflation": 2.62105002},
+  {"Country": "China", "Year": 2014, "Inflation": 1.92164163},
+  {"Country": "China", "Year": 2015, "Inflation": 1.43702381},
+  {"Country": "China", "Year": 2016, "Inflation": 2.00000182},
+  {"Country": "China", "Year": 2017, "Inflation": 1.593136},
+  {"Country": "China", "Year": 2018, "Inflation": 2.0747904},
+  {"Country": "China", "Year": 2019, "Inflation": 2.89923416},
+  {"Country": "China", "Year": 2020, "Inflation": 2.41942189},
+  {"Country": "China", "Year": 2021, "Inflation": 0.98101514},
+  {"Country": "China", "Year": 2022, "Inflation": 1.97357556},
+  {"Country": "China", "Year": 2023, "Inflation": 0.23483683},
+  {"Country": "China", "Year": 2024, "Inflation": 0.21812894},
+
+  // Indonesia
+  {"Country": "Indonesia", "Year": 2010, "Inflation": 5.13420639},
+  {"Country": "Indonesia", "Year": 2011, "Inflation": 5.35604849},
+  {"Country": "Indonesia", "Year": 2012, "Inflation": 4.27951427},
+  {"Country": "Indonesia", "Year": 2013, "Inflation": 6.41249458},
+  {"Country": "Indonesia", "Year": 2014, "Inflation": 6.39492882},
+  {"Country": "Indonesia", "Year": 2015, "Inflation": 6.36312061},
+  {"Country": "Indonesia", "Year": 2016, "Inflation": 3.52580453},
+  {"Country": "Indonesia", "Year": 2017, "Inflation": 3.80879858},
+  {"Country": "Indonesia", "Year": 2018, "Inflation": 3.19834756},
+  {"Country": "Indonesia", "Year": 2019, "Inflation": 3.03058461},
+  {"Country": "Indonesia", "Year": 2020, "Inflation": 1.91983527},
+  {"Country": "Indonesia", "Year": 2021, "Inflation": 1.56007883},
+  {"Country": "Indonesia", "Year": 2022, "Inflation": 4.20946464},
+  {"Country": "Indonesia", "Year": 2023, "Inflation": 3.66938655},
+  {"Country": "Indonesia", "Year": 2024, "Inflation": 2.18151274},
+
+  // United States
+  {"Country": "United States", "Year": 2010, "Inflation": 1.640043442},
+  {"Country": "United States", "Year": 2011, "Inflation": 3.156841569},
+  {"Country": "United States", "Year": 2012, "Inflation": 2.069337265},
+  {"Country": "United States", "Year": 2013, "Inflation": 1.464832656},
+  {"Country": "United States", "Year": 2014, "Inflation": 1.622222977},
+  {"Country": "United States", "Year": 2015, "Inflation": 0.118627136},
+  {"Country": "United States", "Year": 2016, "Inflation": 1.261583206},
+  {"Country": "United States", "Year": 2017, "Inflation": 2.130110004},
+  {"Country": "United States", "Year": 2018, "Inflation": 2.442583297},
+  {"Country": "United States", "Year": 2019, "Inflation": 1.812210075},
+  {"Country": "United States", "Year": 2020, "Inflation": 1.233584396},
+  {"Country": "United States", "Year": 2021, "Inflation": 4.697858864},
+  {"Country": "United States", "Year": 2022, "Inflation": 8.002799821},
+  {"Country": "United States", "Year": 2023, "Inflation": 4.116338384},
+  {"Country": "United States", "Year": 2024, "Inflation": 2.949525205}
+];
+
+// ================== Vega-Lite Chart Spec ================== //
+const inflationSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": { "values": inflationData },
+  "mark": { "type": "line", "point": {"filled": true, "size": 40}, "interpolate": "monotone", "strokeWidth": 2 },
+  "encoding": {
+    "x": { "field": "Year", "type": "quantitative", "axis": {"title": "Year", "format": "d"} },
+    "y": { "field": "Inflation", "type": "quantitative", "axis": {"title": "Inflation Rate (%)"}, "scale": {"domain": [-2, 10]} },
+    "color": { "field": "Country", "type": "nominal", "title": "Country" },
+    "tooltip": [
+      {"field": "Country", "type": "nominal"},
+      {"field": "Year", "type": "quantitative"},
+      {"field": "Inflation", "type": "quantitative", "format": ".2f"}
+    ]
+  },
+  "width": 500,
+  "height": 450,
+  "config": {
+    "axis": { "labelFontSize": 12, "titleFontSize": 13, "gridColor": "#ddd" },
+    "axisX": { "grid": false },
+    "legend": { "labelFontSize": 12, "titleFontSize": 13 }
+  }
+};
+vegaEmbed("#inflation", inflationSpec);

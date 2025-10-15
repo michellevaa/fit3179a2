@@ -1,0 +1,95 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Access to basic amenities (piped water, sanitation, electricity) by state and district (interactive Vega-Lite-only version).",
+  "width": 545,
+  "height": 320,
+  "data": {
+    "url": "../data/hh_access_amenities.csv",
+    "format": { "type": "csv" }
+  },
+  "params": [
+    {
+      "name": "stateParam",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Johor", "Kedah", "Kelantan", "Melaka", "Negeri Sembilan", "Pahang",
+          "Penang", "Perak", "Perlis", "Sabah", "Sarawak", "Selangor", "Terengganu", "Kuala Lumpur"
+        ],
+        "labels": [
+          "Johor", "Kedah", "Kelantan", "Melaka", "Negeri Sembilan", "Pahang",
+          "Penang", "Perak", "Perlis", "Sabah", "Sarawak", "Selangor", "Terengganu", "Kuala Lumpur"
+        ],
+        "name": "State: "
+      },
+      "value": "Johor"
+    },
+    {
+      "name": "districtParam",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Batu Pahat", "Johor Bahru", "Kulai", "Mersing", "Pontian", "Segamat",
+          "Kota Bharu", "Kuala Nerus", "Petaling", "Gombak", "Muar", "Kluang"
+        ],
+        "labels": [
+          "Batu Pahat", "Johor Bahru", "Kulai", "Mersing", "Pontian", "Segamat",
+          "Kota Bharu", "Kuala Nerus", "Petaling", "Gombak", "Muar", "Kluang"
+        ],
+        "name": "District: "
+      },
+      "value": "Batu Pahat"
+    }
+  ],
+  "transform": [
+    { "calculate": "year(toDate(datum.date))", "as": "Year" },
+    {
+      "filter": "datum.state == stateParam && datum.district == districtParam"
+    },
+    { "fold": ["piped_water", "sanitation", "electricity"], "as": ["Amenity", "Value"] }
+  ],
+  "mark": { "type": "bar", "width": { "band": 0.7 } },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Year",
+      "sort": ["2016", "2019", "2022"],
+      "axis": { "labelAngle": 0 }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "title": "Access (%)",
+      "scale": { "domain": [0, 100] },
+      "axis": {
+        "values": [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "grid": true
+      }
+    },
+    "xOffset": { "field": "Amenity" },
+    "color": {
+      "field": "Amenity",
+      "type": "nominal",
+      "title": "Amenity Type",
+      "scale": {
+        "domain": ["piped_water", "sanitation", "electricity"],
+        "range": ["#2b8cbe", "#f0c300", "#9e2a2b"]
+      }
+    },
+    "tooltip": [
+      { "field": "state", "title": "State" },
+      { "field": "district", "title": "District" },
+      { "field": "Year", "title": "Year" },
+      { "field": "Amenity", "title": "Amenity" },
+      { "field": "Value", "title": "Access (%)", "format": ".1f" }
+    ]
+  },
+  "config": {
+    "axis": { "labelFontSize": 12, "titleFontSize": 13 },
+    "legend": { "labelFontSize": 12, "titleFontSize": 13 },
+    "view": { "stroke": "transparent" }
+  }
+}

@@ -1,0 +1,147 @@
+/* ========== GENERAL LAYOUT ========== */
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: #ffffff;
+  color: #222;
+  margin: 40px;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+p {
+  text-align: center;
+  margin-top: 0;
+  color: #555;
+}
+
+hr {
+  margin: 60px auto;
+  width: 85%;
+  border: 1px solid #ccc;
+}
+
+/* ========== CHART SECTIONS ========== */
+#vis, #inflation, #choropleth, #amenities {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Inflation + Amenities container sections */
+#inflation-section,
+#amenities-section {
+  width: 90%;
+  margin: 40px auto;
+}
+
+/* Make section headers left-aligned */
+#inflation-section h2, #inflation-section p,
+#amenities-section h2, #amenities-section p {
+  text-align: left;
+  margin-left: 40px;
+  max-width: 700px;
+}
+
+/* ========== INFLATION SECTION RIGHT-ALIGNED ========== */
+#inflation-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;  /* Right-align all content */
+  width: 90%;
+  margin: 40px auto;
+}
+
+#inflation-section h2,
+#inflation-section p {
+  text-align: right;      /* Align text to the right */
+  margin-right: 40px;     /* Add space from the right edge */
+  max-width: 520px;
+}
+
+#inflation {
+  display: flex;
+  justify-content: flex-end; /* Push chart to the right */
+  width: 90%;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+
+
+/* ========== POVERTY MAP SECTION LEFT-ALIGNED ========== */
+#poverty-map-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* Align all children (headings, text, map) left */
+  width: 90%;
+  margin: 60px auto 0 auto;
+}
+
+#poverty-map-section h2 {
+  text-align: left !important;  /* Force left alignment */
+  width: 100%;
+  margin-left: 40px;
+  margin-bottom: 4px;
+}
+
+#poverty-map-section p {
+  text-align: left !important;  /* Force left alignment */
+  width: 100%;
+  margin-left: 40px;
+  color: #555;
+  max-width: 700px;
+}
+
+#choropleth {
+  display: flex;
+  justify-content: flex-start;  /* Left-align map container */
+  width: 90%;
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+
+/* ========== AMENITIES SECTION RIGHT-ALIGNED ========== */
+#amenities-section,
+#amenities-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Right-align content */
+  width: 90%;
+  margin: 40px auto;
+}
+
+#amenities-section h2,
+#amenities-section p,
+#amenities-panel h2,
+#amenities-panel p {
+  text-align: right;        /* Right-align headings & paragraph */
+  margin-right: 40px;       /* Space from right edge */
+  max-width: 700px;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end; /* Move dropdowns to right */
+  align-items: center;
+  margin: 10px 40px 25px auto;
+  flex-wrap: wrap;
+}
+
+#amenities {
+  display: flex;
+  justify-content: flex-end; /* Move chart to the right */
+  width: 650px;              /* Shrink chart */
+  max-width: 90%;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+
+#amenities .vega-embed,
+#amenities .vega-embed > * {
+  max-width: 100% !important;
+}
+
