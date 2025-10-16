@@ -57,8 +57,7 @@
           "type": "quantitative",
           "scale": {
             "domain": [25, 65],
-            "range": ["#f3e2c7", "#8b5a2b"],
-            "interpolate": "hcl"
+            "scheme": {"name": "reds", "extent": [0.2, 1.0]}
           },
           "title": "Gini Index"
         },

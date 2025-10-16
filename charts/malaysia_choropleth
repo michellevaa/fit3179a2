@@ -1,66 +1,49 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "District-Level Poverty vs. Income in Malaysia (2022)",
-  "width": 800,
-  "height": 550,
-  "projection": {
-    "type": "mercator",
-    "center": [110, 3],
-    "scale": 2000
-  },
+  "title": "Poverty Rate by District in Malaysia (2022)",
+  "width": 900,
+  "height": 560,
+  "projection": { "type": "mercator", "center": [110, 3], "scale": 2600 },
 
   "layer": [
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/vega/vega/main/docs/data/world-110m.json",
-        "format": { "type": "topojson", "feature": "countries" }
-      },
-      "mark": { "type": "geoshape", "fill": "#eaf2fa", "stroke": "white" }
+    { "data": { "graticule": { "step": [5, 5] } },
+      "mark": { "type": "geoshape", "stroke": "#cfd8e3", "strokeWidth": 0.6, "fill": null }
     },
     {
-      "data": { "url": "data/merged_hies_geodata_clean.csv" },
-      "mark": {
-        "type": "circle",
-        "opacity": 0.7,
-        "stroke": "#555",
-        "strokeWidth": 0.4
+      "data": {
+        "url": "data/ne_10m_admin_1_states_provinces.json",
+        "format": { "type": "topojson", "feature": "ne_10m_admin_1_states_provinces" }
       },
+      "transform": [
+        { "filter": "datum.properties.adm0_a3 == 'MYS'" },
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": { "url": "data/merged_hies_geodata_clean.csv" },
+            "key": "state",
+            "fields": ["poverty"]
+          }
+        }
+      ],
+      "mark": { "type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.6 },
       "encoding": {
-        "longitude": { "field": "Lon", "type": "quantitative" },
-        "latitude": { "field": "Lat", "type": "quantitative" },
-        "size": {
-          "field": "income_mean",
-          "type": "quantitative",
-          "title": "Mean Household Income (MYR)",
-          "scale": { "range": [10, 1000] }
-        },
         "color": {
           "field": "poverty",
           "type": "quantitative",
           "title": "Poverty Rate (%)",
-          "scale": { "scheme": "reds" }
+          "scale": { "scheme": "oranges" }
         },
         "tooltip": [
-          { "field": "state", "title": "State" },
-          { "field": "district", "title": "District" },
-          { "field": "income_mean", "title": "Mean Income (MYR)" },
-          { "field": "poverty", "title": "Poverty Rate (%)" },
-          { "field": "gini", "title": "Gini Index" }
+          { "field": "properties.name", "title": "State" },
+          { "field": "poverty", "title": "Poverty Rate (%)", "format": ".1f" }
         ]
       }
     }
   ],
 
   "config": {
-    "title": {
-      "fontSize": 18,
-      "fontWeight": "bold",
-      "anchor": "middle"
-    },
-    "legend": {
-      "labelFontSize": 12,
-      "titleFontSize": 13
-    },
+    "title": { "fontSize": 18, "fontWeight": "bold" },
+    "legend": { "labelFontSize": 12, "titleFontSize": 13 },
     "view": { "stroke": "transparent" }
   }
 }
