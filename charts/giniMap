@@ -4,7 +4,7 @@
   "height": 540,
   "projection": {
     "type": "equalEarth",
-    "scale": 240,
+    "scale": 220,
     "center": [10, 10],
     "translate": [490, 320]
   },
@@ -56,18 +56,9 @@
           "field": "Gini",
           "type": "quantitative",
           "scale": {
-            "domain": [25, 30, 35, 40, 45, 50, 55, 60, 65],
-            "range": [
-              "#2c7a3f",
-              "#4da65a",
-              "#8cc38a",
-              "#c7d79e",
-              "#f3e59c",
-              "#fcd67e",
-              "#f9b35c",
-              "#d76d32",
-              "#8c3b1e"
-            ]
+            "domain": [25, 65],
+            "range": ["#f3e2c7", "#8b5a2b"],
+            "interpolate": "hcl"
           },
           "title": "Gini Index"
         },
