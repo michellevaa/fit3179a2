@@ -257,3 +257,27 @@ hr {
   max-width: 100% !important;
 }
 
+/* Connected background card for map + amenities without changing layout */
+#amenities-container {
+  width: 95%;
+  margin: 0 auto 40px auto;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(18, 38, 63, 0.08);
+  padding: 8px 0;
+}
+
+#map-panel, #amenities-panel {
+  margin: 0; /* remove extra outer margins so they look like one container */
+}
+
+#map-panel .chart-card,
+#amenities-panel .chart-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
