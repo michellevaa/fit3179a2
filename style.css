@@ -76,6 +76,12 @@ hr {
   margin: 0;
 }
 
+/* Ensure fixed-width charts align to the right inside right-aligned cards */
+.chart-card.right > #amenities,
+.chart-card.right > #inflation {
+  margin-left: auto;
+}
+
 .chart-caption {
   font-size: 13px;
   color: #666;
