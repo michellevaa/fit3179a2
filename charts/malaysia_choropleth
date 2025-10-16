@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Poverty Rate by District in Malaysia (2022)",
+  "title": "Poverty Rate by State in Malaysia (2022)",
   "width": 900,
   "height": 560,
   "projection": { "type": "mercator", "center": [110, 3], "scale": 2600 },
