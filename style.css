@@ -38,12 +38,14 @@ p {
 #site-header h1 {
   margin-bottom: 10px;
   color: #ffffff;
+  text-align: left;
 }
 
 #site-header p {
   color: rgba(255, 255, 255, 0.92);
   max-width: 860px;
-  margin: 0 auto;
+  margin: 0;
+  text-align: left;
 }
 
 #site-header .header-sub {
@@ -51,6 +53,30 @@ p {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.88);
 }
+
+/* Header meta chips */
+.meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-start;
+  margin-top: 14px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  font-size: 14px;
+  backdrop-filter: blur(2px);
+}
+
+.chip strong { color: #ffffff; }
 
 hr {
   margin: 60px auto;
