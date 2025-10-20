@@ -46,7 +46,19 @@
   <!-- ========== MALAYSIA MAP + AMENITIES SECTION ========== -->
   <div id="amenities-container">
 
-    <!-- TOP LEFT: Map -->
+    <!-- TOP RIGHT (now on top): Well-being summary card -->
+    <aside id="wellbeing-card" class="chart-card right">
+        <div class="wb-info">
+          <h2>A summary of well-being by sub-component</h2>
+          <p class="wb-date">Data as of 2022</p>
+          <p class="wb-desc">Indices summarise changes in quality of life. Values above 100 indicate improvements relative to the year 2000 baseline.</p>
+        </div>
+        <div class="wb-chart">
+          <div id="wellbeing-heatmap"></div>
+        </div>
+      </aside>
+    
+    <!-- BELOW: Map -->
     <div id="map-panel">
       <h2>Poverty Rate by State in Malaysia (2022)</h2>
       <p>Choropleth map showing relative poverty rates across states.</p>
@@ -91,6 +103,7 @@
     vegaEmbed("#inflation", "charts/inflationChart.json", { actions: false });
     vegaEmbed("#choropleth", "charts/malaysia_choropleth", { actions: false });
     vegaEmbed("#scatter", "charts/scatterPlot.json", { actions: false });
+    vegaEmbed("#wellbeing-heatmap", "charts/wellbeing_heatmap.json", { actions: false });
   </script>
 
   <script src="js/amenitiesChart"></script>

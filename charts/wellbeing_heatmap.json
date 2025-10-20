@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Heatmap of Malaysian Well-being sub-components by year with component toggle.",
+  "data": { "url": "data/wellbeing.csv" },
+  "params": [
+    {
+      "name": "compSel",
+      "value": "All",
+      "bind": {
+        "input": "radio",
+        "options": ["All", "Economic Well-being", "Social Well-being"],
+        "labels": ["All", "Economic Well-Being", "Social Well-Being"],
+        "name": "Component: "
+      }
+    }
+  ],
+  "transform": [
+    { "filter": "compSel == 'All' || datum.Component == compSel" },
+    { "filter": "datum['Sub Component'] != 'Total'" }
+  ],
+  "title": {
+    "text": "A summary of well-being by sub-component",
+    "anchor": "start",
+    "fontSize": 16,
+    "fontWeight": "bold"
+  },
+  "width": 700,
+  "height": 420,
+  "mark": "rect",
+  "encoding": {
+    "y": { "field": "Sub Component", "type": "nominal", "sort": "-x", "title": null },
+    "x": { "field": "Year", "type": "ordinal", "title": null },
+    "color": {
+      "field": "Index",
+      "type": "quantitative",
+      "scale": { "scheme": "blues" },
+      "title": "Index"
+    },
+    "tooltip": [
+      { "field": "Component", "title": "Component" },
+      { "field": "Sub Component", "title": "Sub-Component" },
+      { "field": "Year" },
+      { "field": "Index" }
+    ]
+  },
+  "config": {
+    "view": { "stroke": null },
+    "axis": { "labelFontSize": 11, "title": null }
+  }
+}
+
+
