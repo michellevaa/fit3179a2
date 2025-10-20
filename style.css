@@ -162,8 +162,13 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: flex-end;  /* Right-align all content */
-  width: 90%;
+  width: 95%; /* match outer containers */
   margin: 40px auto;
+}
+
+/* Make the inflation chart card span wider like other containers */
+#inflation-section .chart-card {
+  width: 95%;
 }
 
 #inflation-section h2,
