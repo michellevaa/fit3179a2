@@ -212,8 +212,9 @@ hr {
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 6px 20px rgba(18, 38, 63, 0.08);
-  width: 300px;
+  width: 250px;
   flex-shrink: 0;
+  min-height: fit-content;
 }
 
 .key-insights-container h3 {
@@ -290,6 +291,26 @@ hr {
 .inflation-content .chart-card {
   flex: 1;
   width: auto;
+}
+
+/* Inflation comparison content layout (Malaysia vs Emerging Markets) */
+.inflation-comparison-content {
+  display: flex;
+  gap: 20px;
+  align-items: stretch; /* Make both containers same height */
+  margin-top: 20px;
+}
+
+.inflation-comparison-content .chart-card {
+  flex: 0.5; /* Make chart smaller */
+  width: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.inflation-comparison-content .key-insights-container {
+  flex: 0.5; /* Match chart width */
+  align-self: stretch; /* Fill available height */
 }
 
 /* Make the inflation chart card span wider like other containers */
