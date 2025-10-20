@@ -225,6 +225,12 @@ hr {
   margin: 40px auto;
 }
 
+/* New individual container wrapper for amenities */
+#amenities-card {
+  width: 95%;
+  margin: 60px auto; /* add spacing above and below */
+}
+
 #amenities-section h2,
 #amenities-section p,
 #amenities-panel h2,
@@ -246,8 +252,8 @@ hr {
 #amenities {
   display: flex;
   justify-content: flex-end; /* Move chart to the right */
-  width: 650px;              /* Shrink chart */
-  max-width: 90%;
+  width: 800px;              /* Bigger chart */
+  max-width: 95%;
   margin-right: 40px;
   margin-top: 20px;
 }
