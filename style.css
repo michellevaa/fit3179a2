@@ -432,11 +432,77 @@ hr {
 .pictogram-text {
   font-size: 12px;
   color: #666;
-  text-align: left;
-  margin: 8px 0 0 0;
+  text-align: center !important;
+  margin: 8px auto 0 auto;
   line-height: 1.4;
   max-width: 100%;
-  padding: 0 8px;
+  padding: 4px 8px;
+  background-color: rgba(144, 238, 144, 0.4);
+  border-radius: 4px;
+  display: block;
+}
+
+/* ========== WELL-BEING INSIGHT CONTAINER ========== */
+.wellbeing-insight-container {
+  width: 95%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.insight-card {
+  background: white;
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  padding: 16px 24px;
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.insight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4caf50, #66bb6a, #81c784);
+}
+
+.insight-icon {
+  font-size: 32px;
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  flex-shrink: 0;
+}
+
+.insight-content p {
+  color: #2e7d32;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 500;
+}
+
+.insight-content strong {
+  color: #1b5e20;
+  font-weight: bold;
+}
+
+/* ========== GINI MAP INSIGHT CONTAINER ========== */
+.gini-insight-container {
+  width: 95%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
 }
 
 .pictogram-card .pic-caption {
