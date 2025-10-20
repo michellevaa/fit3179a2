@@ -1,14 +1,14 @@
 /* ========== GENERAL LAYOUT ========== */
 body {
   font-family: "Inter", Arial, sans-serif;
-  background: #ffffff;
+  background: #FFECE7;
   color: #222;
   margin: 40px;
 }
 
 /* Subtle background gradient */
 html, body {
-  background: linear-gradient(180deg, #f7f9fc 0%, #ffffff 40%, #f9fbff 100%);
+  background: #FFECE7;
 }
 
 h1, h2 {
