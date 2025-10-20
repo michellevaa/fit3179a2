@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Pictogram showing access to tap water and electricity in 2022.",
+  "width": 220,
+  "height": 160,
+  "data": {
+    "url": "data/malaysia_household_amenities_2016_2019.csv"
+  },
+  "transform": [
+    {"filter": "datum.Category == 'Owned Dwelling (Malaysia)' || datum.Category == 'Rented Dwelling (Malaysia)'"},
+    {"calculate": "datum['2019 (%)']", "as": "p"},
+    {"calculate": "datum.Category == 'Owned Dwelling (Malaysia)' ? 'Owned Dwelling' : 'Rented Dwelling'", "as": "metric"},
+    {"calculate": "sequence(1, 101)", "as": "slots"},
+    {"flatten": ["slots"]},
+    {"calculate": "floor((datum.slots - 1)/10)", "as": "row"},
+    {"calculate": "(datum.slots - 1) % 10", "as": "col"}
+  ],
+  "facet": {"field": "metric", "type": "nominal", "columns": 1, "title": null},
+  "spec": {
+    "layer": [
+      {
+        "mark": {"type": "image", "url": "icon/man-silhouette-svgrepo-com.svg", "width": 14, "height": 14, "opacity": 0.18},
+        "encoding": {
+          "x": {"field": "col", "type": "ordinal", "axis": null},
+          "y": {"field": "row", "type": "ordinal", "axis": null}
+        }
+      },
+      {
+        "transform": [{"filter": "datum.slots <= datum.p"}],
+        "mark": {"type": "image", "url": "icon/man-silhouette-svgrepo-com.svg", "width": 14, "height": 14, "opacity": 0.95},
+        "encoding": {
+          "x": {"field": "col", "type": "ordinal", "axis": null},
+          "y": {"field": "row", "type": "ordinal", "axis": null}
+        }
+      }
+    ]
+  },
+  "config": {
+    "facet": {"spacing": 10},
+    "view": {"stroke": null},
+    "axis": {"grid": false}
+  }
+}
+
+

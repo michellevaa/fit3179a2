@@ -79,9 +79,13 @@
           <label for="districtSel">District:</label>
           <select id="districtSel"></select>
         </div>
-
-        <div class="chart-card right">
-          <div id="amenities"></div>
+        <div class="amenities-row">
+          <div class="pictogram-card">
+            <div id="pictogram"></div>
+          </div>
+          <div class="chart-card right amenities-chart">
+            <div id="amenities"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -120,6 +124,7 @@
     vegaEmbed("#inflation", "charts/inflationChart.json", { actions: false });
     vegaEmbed("#scatter", "charts/scatterPlot.json", { actions: false });
     vegaEmbed("#wellbeing-heatmap", "charts/wellbeing_heatmap.json", { actions: false });
+    vegaEmbed('#pictogram', 'charts/pictogram_access.json', {actions: false});
   </script>
 
   <script src="js/amenitiesChart"></script>
