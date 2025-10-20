@@ -33,8 +33,6 @@
     },
     "tooltip": [
       { "field": "Component", "title": "Component" },
-      { "field": "Sub Component", "title": "Sub-Component" },
-      { "field": "Year" },
       { "field": "Index" }
     ]
   },

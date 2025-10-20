@@ -138,7 +138,10 @@
         "strokeDash": {
           "condition": {"test": "datum.Year >= 2025", "value": [5, 5]},
           "value": [0, 0]
-        }
+        },
+        "tooltip": [
+          {"field": "Inflation", "title": "Annual percent change", "format": ".1f"}
+        ]
       }
     },
     {
