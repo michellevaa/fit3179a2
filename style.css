@@ -251,6 +251,41 @@ hr {
   margin-bottom: 0;
 }
 
+/* Insights Summary Section */
+.insights-summary {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.insights-summary h4 {
+  color: #0f9d58;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 12px 0;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 6px 0;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 13px;
+  flex: 1;
+}
+
+.stat-value {
+  color: #333;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: right;
+}
+
 /* Chart container in inflation content */
 .inflation-content .chart-card {
   flex: 1;
