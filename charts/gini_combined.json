@@ -1,0 +1,118 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Toggle between World Gini choropleth and Malaysia-by-state Gini choropleth in a single area",
+  "params": [
+    {
+      "name": "levelSel",
+      "value": "World",
+      "bind": { "input": "radio", "options": ["World", "Malaysia"], "name": "View: " }
+    }
+  ],
+  "width": 980,
+  "height": 540,
+  "layer": [
+    {
+      "title": "Global Gini Index (latest available)",
+      "projection": {"type": "equalEarth", "scale": 220, "center": [10,10], "translate": [490,320]},
+      "data": {"url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson", "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}},
+      "transform": [
+        {"filter": "levelSel == 'World'"},
+        {"calculate": "upper(trim(datum.properties.ISO_A3 || datum.properties.ADM0_A3 || datum.id))", "as": "iso3"},
+        {"filter": "datum.iso3 && length(datum.iso3) == 3 && datum.iso3 != '-99'"},
+        {"lookup": "iso3", "from": {"data": {"url": "data/API_SI.POV.GINI_DS2_en_csv_v2_25089.csv", "format": {"type": "csv", "skip": 4}}, "key": "Country Code", "fields": ["Country Name", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"]}},
+        {"calculate": "isValid(toNumber(datum['2022'])) ? toNumber(datum['2022']) : isValid(toNumber(datum['2021'])) ? toNumber(datum['2021']) : isValid(toNumber(datum['2020'])) ? toNumber(datum['2020']) : isValid(toNumber(datum['2019'])) ? toNumber(datum['2019']) : isValid(toNumber(datum['2018'])) ? toNumber(datum['2018']) : isValid(toNumber(datum['2017'])) ? toNumber(datum['2017']) : isValid(toNumber(datum['2016'])) ? toNumber(datum['2016']) : isValid(toNumber(datum['2015'])) ? toNumber(datum['2015']) : isValid(toNumber(datum['2014'])) ? toNumber(datum['2014']) : null", "as": "Gini"},
+        {"calculate": "datum['Country Name'] || datum.properties.NAME", "as": "DisplayName"}
+      ],
+      "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.5},
+      "encoding": {
+        "color": {"field": "Gini", "type": "quantitative", "scale": {"domain": [25,65], "scheme": {"name": "reds", "extent": [0.2,1]}}, "title": "Gini Index"},
+        "tooltip": [{"field": "DisplayName", "title": "Country"}, {"field": "Gini", "title": "Gini Index", "format": ".1f"}]
+      }
+    },
+    {
+      "transform": [{"filter": "levelSel == 'World'"}],
+      "projection": {"type": "equalEarth", "scale": 220, "center": [10,10], "translate": [490,320]},
+      "data": {"values": [
+          {"country": "United States", "longitude": -98, "latitude": 39, "gini": 41.7},
+          {"country": "Canada", "longitude": -106, "latitude": 59, "gini": 34.1},
+          {"country": "Brazil", "longitude": -51, "latitude": -10, "gini": 52.0},
+          {"country": "Russia", "longitude": 105, "latitude": 60, "gini": 33.9},
+          {"country": "China", "longitude": 104, "latitude": 35, "gini": 36.0},
+          {"country": "Malaysia", "longitude": 109, "latitude": 4, "gini": 40.7},
+          {"country": "Indonesia", "longitude": 120, "latitude": -5, "gini": 35.5},
+          {"country": "South Africa", "longitude": 24, "latitude": -29, "gini": 63.0},
+          {"country": "Congo, Dem. Rep.", "longitude": 23, "latitude": -3, "gini": 44.7}
+        ]},
+      "mark": {"type": "circle", "color": "white", "stroke": "#333", "strokeWidth": 1.2},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "size": {"value": 700}
+      }
+    },
+    {
+      "transform": [{"filter": "levelSel == 'World'"}],
+      "projection": {"type": "equalEarth", "scale": 220, "center": [10,10], "translate": [490,320]},
+      "data": {"values": [
+          {"country": "United States", "longitude": -98, "latitude": 39, "gini": 41.7},
+          {"country": "Canada", "longitude": -106, "latitude": 59, "gini": 34.1},
+          {"country": "Brazil", "longitude": -51, "latitude": -10, "gini": 52.0},
+          {"country": "Russia", "longitude": 105, "latitude": 60, "gini": 33.9},
+          {"country": "China", "longitude": 104, "latitude": 35, "gini": 36.0},
+          {"country": "Malaysia", "longitude": 109, "latitude": 4, "gini": 40.7},
+          {"country": "Indonesia", "longitude": 120, "latitude": -5, "gini": 35.5},
+          {"country": "South Africa", "longitude": 24, "latitude": -29, "gini": 63.0},
+          {"country": "Congo, Dem. Rep.", "longitude": 23, "latitude": -3, "gini": 44.7}
+        ]},
+      "mark": {"type": "text", "align": "center", "baseline": "middle", "fontSize": 10, "fontWeight": "bold", "color": "#000"},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "gini", "type": "quantitative", "format": ".1f"}
+      }
+    },
+    {
+      "transform": [{"filter": "levelSel == 'World'"}],
+      "projection": {"type": "equalEarth", "scale": 220, "center": [10,10], "translate": [490,320]},
+      "data": {"values": [
+          {"country": "United States", "longitude": -94, "latitude": 34},
+          {"country": "Canada", "longitude": -102, "latitude": 54},
+          {"country": "Brazil", "longitude": -51, "latitude": -14.9},
+          {"country": "Russia", "longitude": 100, "latitude": 54.5},
+          {"country": "China", "longitude": 103, "latitude": 30.5},
+          {"country": "Malaysia", "longitude": 109, "latitude": 0.5},
+          {"country": "Indonesia", "longitude": 120, "latitude": -8.5},
+          {"country": "South Africa", "longitude": 24, "latitude": -34},
+          {"country": "Congo", "longitude": 23, "latitude": -6.5}
+        ]},
+      "mark": {"type": "text", "align": "center", "baseline": "top", "fontSize": 9, "fontWeight": "bold", "color": "#555"},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "country", "type": "nominal"}
+      }
+    },
+    {
+      "title": "Gini Index by State in Malaysia (2022)",
+      "projection": {"type": "mercator", "center": [110,3], "scale": 2600},
+      "transform": [{"filter": "levelSel == 'Malaysia'"}],
+      "layer": [
+        {"data": {"graticule": {"step": [5,5]}}, "mark": {"type": "geoshape", "stroke": "#cfd8e3", "strokeWidth": 0.6, "fill": null}},
+        {"data": {"url": "data/ne_10m_admin_1_states_provinces.json", "format": {"type": "topojson", "feature": "ne_10m_admin_1_states_provinces"}},
+         "transform": [
+           {"filter": "datum.properties.adm0_a3 == 'MYS'"},
+           {"lookup": "properties.name", "from": {"data": {"url": "data/merged_hies_geodata_clean.csv"}, "key": "state", "fields": ["gini"]}}
+         ],
+         "mark": {"type": "geoshape", "stroke": "#ffffff", "strokeWidth": 0.6},
+         "encoding": {
+           "color": {"field": "gini", "type": "quantitative", "title": "Gini Index", "scale": {"scheme": {"name": "reds", "extent": [0.2,1]}}},
+           "tooltip": [{"field": "properties.name", "title": "State"}, {"field": "gini", "title": "Gini Index", "format": ".3f"}]
+         }
+        }
+      ]
+    }
+  ],
+  "config": {"legend": {"labelFontSize": 11, "titleFontSize": 13}, "view": {"stroke": "transparent"}}
+}
+
+
