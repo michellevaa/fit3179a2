@@ -296,7 +296,7 @@ hr {
 #amenities {
   display: flex;
   justify-content: flex-end; /* Move chart to the right */
-  width: 800px;              /* Bigger chart */
+  width: 650px;              /* Bigger chart */
   max-width: 95%;
   margin-right: 40px;
   margin-top: 20px;
@@ -305,7 +305,7 @@ hr {
 /* Row layout: pictogram left, bar chart right */
 .amenities-row {
   display: grid;
-  grid-template-columns: 440px 1fr; /* push chart further right */
+  grid-template-columns: 500px 1fr; /* push chart further right */
   gap: 16px;
   align-items: start;
   width: 95%;
