@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Pictogram showing access to tap water and electricity in 2022.",
-  "width": 220,
-  "height": 160,
+  "width": 800,
+  "height": 600,
   "data": {
     "url": "data/malaysia_household_amenities_2016_2019.csv"
   },
   "transform": [
     {"filter": "datum.Category == 'Owned Dwelling (Malaysia)' || datum.Category == 'Rented Dwelling (Malaysia)'"},
-    {"calculate": "datum['2019 (%)']", "as": "p"},
+    {"calculate": "datum.Category == 'Owned Dwelling (Malaysia)' ? 76.9 : (datum.Category == 'Rented Dwelling (Malaysia)' ? 23.1 : datum['2019 (%)'])", "as": "p"},
     {"calculate": "datum.Category == 'Owned Dwelling (Malaysia)' ? 'Owned Dwelling' : 'Rented Dwelling'", "as": "metric"},
     {"calculate": "sequence(1, 101)", "as": "slots"},
     {"flatten": ["slots"]},
@@ -19,18 +19,18 @@
   "spec": {
     "layer": [
       {
-        "mark": {"type": "image", "url": "icon/man-silhouette-svgrepo-com.svg", "width": 14, "height": 14, "opacity": 0.18},
+        "mark": {"type": "image", "url": "icon/man-silhouette-svgrepo-com.svg", "width": 18, "height": 18, "opacity": 0.18},
         "encoding": {
-          "x": {"field": "col", "type": "ordinal", "axis": null},
-          "y": {"field": "row", "type": "ordinal", "axis": null}
+          "x": {"field": "col", "type": "ordinal", "axis": null, "rangeStep": 80},
+          "y": {"field": "row", "type": "ordinal", "axis": null, "rangeStep": 60}
         }
       },
       {
         "transform": [{"filter": "datum.slots <= datum.p"}],
-        "mark": {"type": "image", "url": "icon/man-silhouette-svgrepo-com.svg", "width": 14, "height": 14, "opacity": 0.95},
+        "mark": {"type": "image", "url": "icon/man-silhouette-svgrepo-com.svg", "width": 18, "height": 18, "opacity": 0.95},
         "encoding": {
-          "x": {"field": "col", "type": "ordinal", "axis": null},
-          "y": {"field": "row", "type": "ordinal", "axis": null}
+          "x": {"field": "col", "type": "ordinal", "axis": null, "rangeStep": 80},
+          "y": {"field": "row", "type": "ordinal", "axis": null, "rangeStep": 60}
         }
       }
     ]
