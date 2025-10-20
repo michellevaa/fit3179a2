@@ -27,6 +27,11 @@
   <h2>Global Inequality by Gini Index</h2>
   <p>The Gini Index measures income inequality within countries. A higher score indicates greater inequality in the distribution of income among citizens.</p>
   <div class="chart-card center">
+    <div class="controls" style="justify-content:center; margin: 0 0 10px 0;">
+      <label style="margin-right:12px;">View:</label>
+      <label><input type="radio" name="giniView" id="giniWorld" value="world" checked> World</label>
+      <label style="margin-left:12px;"><input type="radio" name="giniView" id="giniMalaysia" value="malaysia"> Malaysia</label>
+    </div>
     <div id="vis"></div>
   </div>
 
@@ -58,15 +63,6 @@
         </div>
       </aside>
     
-    <!-- BELOW: Map -->
-    <div id="map-panel">
-      <h2>Poverty Rate by State in Malaysia (2022)</h2>
-      <p>Choropleth map showing relative poverty rates across states.</p>
-      <div class="chart-card left">
-        <div id="choropleth"></div>
-      </div>
-    </div>
-
     <!-- TOP RIGHT: Amenities chart -->
     <div id="amenities-panel">
       <h2>Access to Basic Amenities by State & District</h2>
@@ -99,9 +95,24 @@
 
   <!-- ========== JS FILES ========== -->
   <script>
-    vegaEmbed("#vis", "charts/giniMap", { actions: false });
+    function renderGini(view) {
+      const spec = view === 'malaysia' ? 'charts/malaysia_gini_choropleth.json' : 'charts/giniMap';
+      return vegaEmbed('#vis', spec, { actions: false });
+    }
+
+    // initial render (World with original overlays/spec)
+    renderGini('world');
+
+    // toggle listeners
+    document.addEventListener('DOMContentLoaded', function () {
+      const worldBtn = document.getElementById('giniWorld');
+      const mysBtn = document.getElementById('giniMalaysia');
+      if (worldBtn && mysBtn) {
+        worldBtn.addEventListener('change', () => { if (worldBtn.checked) renderGini('world'); });
+        mysBtn.addEventListener('change', () => { if (mysBtn.checked) renderGini('malaysia'); });
+      }
+    });
     vegaEmbed("#inflation", "charts/inflationChart.json", { actions: false });
-    vegaEmbed("#choropleth", "charts/malaysia_choropleth", { actions: false });
     vegaEmbed("#scatter", "charts/scatterPlot.json", { actions: false });
     vegaEmbed("#wellbeing-heatmap", "charts/wellbeing_heatmap.json", { actions: false });
   </script>

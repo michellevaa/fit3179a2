@@ -18,12 +18,7 @@
     { "filter": "compSel == 'All' || datum.Component == compSel" },
     { "filter": "datum['Sub Component'] != 'Total'" }
   ],
-  "title": {
-    "text": "A summary of well-being by sub-component",
-    "anchor": "start",
-    "fontSize": 16,
-    "fontWeight": "bold"
-  },
+  "title": null,
   "width": 700,
   "height": 420,
   "mark": "rect",
