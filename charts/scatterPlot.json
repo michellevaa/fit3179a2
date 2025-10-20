@@ -1,0 +1,119 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Income vs Poverty Rate by District (Malaysia, 2022)",
+  "subtitle": "Interactive scatter plot showing relationship between household income, expenditure, and poverty rates across Malaysian districts",
+  "data": { "url": "data/merged_hies_geodata_clean.csv" },
+  "width": 750,
+  "height": 520,
+
+  "params": [
+    {
+      "name": "minExp",
+      "value": 2000,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 8000,
+        "step": 200,
+        "name": "Minimum Mean Expenditure (MYR): "
+      }
+    },
+    {
+      "name": "stateSel",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All", "Johor", "Kedah", "Kelantan", "Melaka",
+          "Negeri Sembilan", "Pahang", "Penang", "Perak",
+          "Perlis", "Sabah", "Sarawak", "Selangor",
+          "Terengganu", "Kuala Lumpur", "Putrajaya"
+        ],
+        "labels": [
+          "All States", "Johor", "Kedah", "Kelantan", "Melaka",
+          "Negeri Sembilan", "Pahang", "Penang", "Perak",
+          "Perlis", "Sabah", "Sarawak", "Selangor",
+          "Terengganu", "Kuala Lumpur", "Putrajaya"
+        ]
+      },
+      "value": "All"
+    }
+  ],
+
+  "transform": [
+    { "filter": "datum.expenditure_mean >= minExp" },
+    { "filter": "stateSel == 'All' || datum.state == stateSel" }
+  ],
+
+  "layer": [
+    {
+      "mark": { "type": "point", "filled": true, "opacity": 0.8 },
+      "encoding": {
+        "x": {
+          "field": "income_mean",
+          "type": "quantitative",
+          "title": "Mean Household Income (MYR)",
+          "scale": { "zero": false }
+        },
+        "y": {
+          "field": "poverty",
+          "type": "quantitative",
+          "title": "Poverty Rate (%)"
+        },
+        "size": {
+          "field": "expenditure_mean",
+          "type": "quantitative",
+          "title": "Mean Expenditure (MYR)",
+          "scale": { "domain": [2000, 8000], "range": [20, 800] }
+        },
+        "color": {
+          "field": "state",
+          "type": "nominal",
+          "title": "State"
+        },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "district", "title": "District" },
+          { "field": "income_mean", "title": "Mean Income (MYR)" },
+          { "field": "expenditure_mean", "title": "Mean Expenditure (MYR)" },
+          { "field": "poverty", "title": "Poverty Rate (%)" }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "stroke": "black",
+        "strokeDash": [4, 2],
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": { "aggregate": "mean", "field": "poverty" },
+        "tooltip": [{ "value": "National Mean Poverty Rate" }]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "text": "National Mean Poverty Rate",
+        "align": "left",
+        "baseline": "bottom",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "dx": 10,
+        "dy": -5,
+        "color": "black"
+      },
+      "encoding": {
+        "x": { "aggregate": "max", "field": "income_mean" },
+        "y": { "aggregate": "mean", "field": "poverty" }
+      }
+    }
+  ],
+
+  "config": {
+    "title": { "fontSize": 18, "anchor": "start", "fontWeight": "bold" },
+    "legend": { "labelFontSize": 12, "titleFontSize": 13 },
+    "view": { "stroke": "transparent" },
+    "axis": { "grid": true }
+  }
+}

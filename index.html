@@ -46,7 +46,7 @@
   <!-- ========== MALAYSIA MAP + AMENITIES SECTION ========== -->
   <div id="amenities-container">
 
-    <!-- LEFT: Map -->
+    <!-- TOP LEFT: Map -->
     <div id="map-panel">
       <h2>Poverty Rate by State in Malaysia (2022)</h2>
       <p>Choropleth map showing relative poverty rates across states.</p>
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <!-- RIGHT: Amenities chart -->
+    <!-- TOP RIGHT: Amenities chart -->
     <div id="amenities-panel">
       <h2>Access to Basic Amenities by State & District</h2>
       <p>Compare changes in access to piped water, sanitation, and electricity across Malaysian districts over time.</p>
@@ -72,6 +72,15 @@
         <div id="amenities"></div>
       </div>
     </div>
+
+    <!-- BOTTOM LEFT: Scatter Plot -->
+    <div id="scatter-panel">
+      <h2>Income vs Poverty Rate by District (Malaysia, 2022)</h2>
+      <p>Interactive scatter plot showing relationship between household income, expenditure, and poverty rates across Malaysian districts.</p>
+      <div class="chart-card left">
+        <div id="scatter"></div>
+      </div>
+    </div>
   </div>
 
   <hr>
@@ -79,8 +88,9 @@
   <!-- ========== JS FILES ========== -->
   <script>
     vegaEmbed("#vis", "charts/giniMap", { actions: false });
-    vegaEmbed("#inflation", "charts/inflationChart", { actions: false });
+    vegaEmbed("#inflation", "charts/inflationChart.json", { actions: false });
     vegaEmbed("#choropleth", "charts/malaysia_choropleth", { actions: false });
+    vegaEmbed("#scatter", "charts/scatterPlot.json", { actions: false });
   </script>
 
   <script src="js/amenitiesChart"></script>
