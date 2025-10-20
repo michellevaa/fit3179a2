@@ -47,6 +47,11 @@
     <div class="chart-card right">
       <div id="inflation"></div>
     </div>
+    
+    <!-- Malaysia vs Emerging Markets Inflation Comparison -->
+    <div class="chart-card right">
+      <div id="malaysia-emerging-inflation"></div>
+    </div>
   </div>
 
   <hr>
@@ -122,6 +127,7 @@
       }
     });
     vegaEmbed("#inflation", "charts/inflationChart.json", { actions: false });
+    vegaEmbed("#malaysia-emerging-inflation", "charts/malaysia_emerging_inflation.json", { actions: false });
     vegaEmbed("#scatter", "charts/scatterPlot.json", { actions: false });
     vegaEmbed("#wellbeing-heatmap", "charts/wellbeing_heatmap.json", { actions: false });
     vegaEmbed('#pictogram', 'charts/pictogram_access.json', {actions: false});
