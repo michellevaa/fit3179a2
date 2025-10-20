@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Income vs Poverty Rate by District (Malaysia, 2022)",
+  "title": null,
   "subtitle": "Interactive scatter plot showing relationship between household income, expenditure, and poverty rates across Malaysian districts",
   "data": { "url": "data/merged_hies_geodata_clean.csv" },
   "width": 750,

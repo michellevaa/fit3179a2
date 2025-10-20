@@ -142,6 +142,45 @@ hr {
   margin-top: 20px;
 }
 
+/* Pretty section headers for major charts */
+.section-header {
+  width: 95%;
+  margin: 20px auto 8px auto;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f6f9ff 0%, #eef5ff 50%, #ffffff 100%);
+  box-shadow: 0 6px 20px rgba(18, 38, 63, 0.08);
+}
+.section-header.center { text-align: center; }
+.section-header.right { text-align: right; }
+.section-header h2 { margin: 0 0 6px 0; }
+.section-header p { margin: 0; color: #5a6b7b; }
+
+/* Align inflation header with right-aligned chart card */
+#inflation-section .section-header.right {
+  align-self: flex-end;                /* stick to the right above chart */
+  width: auto;                         /* keep compact width */
+  max-width: 520px;                    /* original width cap */
+  margin: 0 40px 10px 0;               /* align with chart's right edge */
+  text-align: right;                   /* right-aligned text */
+  min-width: 70%;                      /* make container wider without shifting text */
+}
+
+/* Centered inflation header like global section */
+#inflation-section .section-header.center {
+  width: 95%;
+  margin: 20px auto 8px auto;
+  text-align: center;
+}
+
+/* Ensure inner texts in centered header are truly centered */
+#inflation-section .section-header.center h2,
+#inflation-section .section-header.center p {
+  text-align: center !important;
+  margin: 0 auto !important;
+  max-width: none;
+}
+
 /* Inflation + Amenities container sections */
 #inflation-section,
 #amenities-section {
