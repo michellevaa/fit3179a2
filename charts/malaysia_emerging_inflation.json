@@ -30,7 +30,7 @@
           "field": "Inflation",
           "type": "quantitative",
           "title": "Annual percent change",
-          "scale": {"domain": [-50, 150]}
+          "scale": {"domain": [0, 150]}
         },
         "color": {
           "field": "Inflation rate, average consumer prices (Annual percent change)",
