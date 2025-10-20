@@ -305,10 +305,12 @@ hr {
 /* Row layout: pictogram left, bar chart right */
 .amenities-row {
   display: grid;
-  grid-template-columns: 260px 1fr; /* small pictogram, large chart */
+  grid-template-columns: 440px 1fr; /* push chart further right */
   gap: 16px;
   align-items: start;
-  margin: 0 40px 10px 40px; /* ensure it sits inside the container */
+  width: 95%;
+  margin: -10px auto 10px auto; /* move row slightly up */
+  box-sizing: border-box;
 }
 
 .pictogram-card {
@@ -328,7 +330,7 @@ hr {
 
 .amenities-chart {
   width: auto;
-  margin-left: 12px; /* nudge chart slightly to the right */
+  margin-left: 20px; /* nudge chart slightly to the right */
 }
 
 #amenities .vega-embed,
@@ -344,7 +346,8 @@ hr {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(18, 38, 63, 0.08);
-  padding: 8px 0;
+  padding: 12px 12px; /* padding on sides to keep inner content inside */
+  overflow: hidden;  /* prevent bleed outside */
 }
 
 #map-panel, #amenities-panel {
