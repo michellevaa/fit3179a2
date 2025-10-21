@@ -111,7 +111,12 @@
   },
   "layer": [
     {
-      "mark": {"type": "line", "strokeWidth": 3},
+      "mark": {
+        "type": "area",
+        "strokeWidth": 2,
+        "stroke": true,
+        "fillOpacity": 0.3
+      },
       "encoding": {
         "x": {
           "field": "Year",
@@ -140,6 +145,7 @@
           "value": [0, 0]
         },
         "tooltip": [
+          {"field": "Year", "title": "Year"},
           {"field": "Inflation", "title": "Annual percent change", "format": ".1f"}
         ]
       }
